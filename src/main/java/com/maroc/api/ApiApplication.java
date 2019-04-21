@@ -5,9 +5,11 @@ import com.maroc.api.fixtures.UsersFixture;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 @SpringBootApplication
+@EnableFeignClients
 public class ApiApplication implements CommandLineRunner {
 
     private final RepositoryRestConfiguration repositoryRestConfiguration;

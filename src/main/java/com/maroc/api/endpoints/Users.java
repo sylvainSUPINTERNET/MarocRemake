@@ -26,7 +26,7 @@ public class Users {
        return usersRepository.findAll();
     }
 
-    @ExceptionHandler(Exception.class)
+    //@ExceptionHandler(Exception.class)
     @GetMapping(path = "/users/{id}")
     public Optional<com.maroc.api.entities.Users> getUsersById(@PathVariable long id){
         Optional <com.maroc.api.entities.Users> optional= usersRepository.findById(id);
@@ -39,3 +39,5 @@ public class Users {
 
 
 }
+
+
