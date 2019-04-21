@@ -1,8 +1,7 @@
 package com.maroc.api;
 
-import com.maroc.api.dao.UserRepository;
-import com.maroc.api.entities.Users;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.maroc.api.dao.UsersRepository;
+import com.maroc.api.fixtures.UsersFixture;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,13 +9,14 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 @SpringBootApplication
 public class ApiApplication implements CommandLineRunner {
-    @Autowired
-    private RepositoryRestConfiguration repositoryRestConfiguration;
 
-    @Autowired
-    UserRepository userRepository;
+    private final RepositoryRestConfiguration repositoryRestConfiguration;
+    final private UsersRepository usersRepository;
 
-
+    public ApiApplication(UsersRepository usersRepository, RepositoryRestConfiguration repositoryRestConfiguration) {
+        this.usersRepository = usersRepository;
+        this.repositoryRestConfiguration = repositoryRestConfiguration;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
@@ -27,9 +27,9 @@ public class ApiApplication implements CommandLineRunner {
         repositoryRestConfiguration.exposeIdsFor(org.apache.catalina.User.class); // default api dosnt expose id field
 
         //Fixtures load
-        Users user1 = new Users();
-        user1.setFirstname("Albert");
-        user1.setLastname("Einsetin");
-        userRepository.save(user1);
+
+        // Users data fixtures
+        UsersFixture usersFixture = new UsersFixture(usersRepository);
+        usersFixture.insert();
     }
 }
